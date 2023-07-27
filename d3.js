@@ -119,7 +119,7 @@ const width = 700 - (margin.left + margin.right);
 const height = 350 - (margin.top + margin.bottom);
 
 const svg = d3
-  .select('.line')
+  .select('.viz')
   .append('svg')
   .attr('viewBox', `0 0 ${width + (margin.left + margin.right)} ${height + (margin.top + margin.bottom)}`)
   .attr('width', width)
