@@ -1,42 +1,161 @@
 <!DOCTYPE html>
-<div id="container"></div>
-<script src="d3.v7.js"></script>
-<script type="module">
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brayden Bingham CS416 Narrative Visualization</title>
+<script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<style></style>
+</head>
+<body>
 
-// Declare the chart dimensions and margins.
-const width = 640;
-const height = 400;
-const marginTop = 20;
-const marginRight = 20;
-const marginBottom = 30;
-const marginLeft = 40;
+<div class="grid-container">
+	<div class="item1">
+		<div class="left-box">
+			<p class="title-p">American satisfaction level compared to average GDP per capita</p>
+			<p class="subtitle-p">CS416 Narrative Visualization</p>
+			<p class="subtitle-p">Brayden Bingham</p>
+		</div>
+		<div class="right-box">
+			<p class="subtitle-p">Data displayed below was gathered from</p>
+			<a href="https://ourworldindata.org/happiness-and-life-satisfaction" class="subtitle-a">Our World in Data</a>
+		</div>
+	</div>
 
-// Declare the x (horizontal position) scale.
-const x = d3.scaleUtc()
-    .domain([new Date("2023-01-01"), new Date("2024-01-01")])
-    .range([marginLeft, width - marginRight]);
+	<div class="item2">
+		<div class="legend-box">
+			<ul class="legend">
+				<li><span class="line0"></span> Satisfaction Rating</li>
+				<li><span class="line1"></span> GDP (10K)</li>
+				<li><span class="line2"></span> Population (100M)</li>
+			</ul>
+		</div>
+		<div class="button-box">
+			<div class="btn-group">
+				<button> Start</button>
+				<button> 1</button>
+				<button> 2</button>
+				<button> 3</button>
+				<button> End</button>
+			</div>
+		</div>
+	</div>
 
-// Declare the y (vertical position) scale.
-const y = d3.scaleLinear()
-    .domain([0, 100])
-    .range([height - marginBottom, marginTop]);
+	<div id="container" class="svg-container"></div>  
+</div>
 
-// Create the SVG container.
-const svg = d3.create("svg")
-    .attr("width", width)
-    .attr("height", height);
+<script>
 
-// Add the x-axis.
+//------------------------1. PREPARATION-------------------------//
+//-----------------------------SVG-------------------------------//
+var width = d3.select("div#container").style('width');
+width = parseInt(width) * 0.8;
+var height = d3.select("div#container").style('width');
+height = parseInt(height) * 0.35;
+
+const margin = 0;
+const padding = 0;
+const adj = 30;
+
+// we are appending SVG first
+const svg = d3.select("div#container").append("svg")
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "-"
+          + adj + " -"
+          + adj + " "
+          + (width + adj *3) + " "
+          + (height + adj*3))
+    .style("padding", padding)
+    .style("margin", margin)
+    .classed("svg-content", true);
+
+//-----------------------------DATA------------------------------//
+const dataset = d3.csv("america-data.csv");
+dataset.then(function(data) {
+    const slices = data.columns.slice(1).map(function(id) {
+        return {
+            id: id,
+            values: data.map(function(d){
+                return {
+                    date: +d.Year,
+                    measurement: +d[id]
+                };
+            })
+        };
+    });
+
+console.log("Column headers", data.columns);
+console.log("Column headers without date", data.columns.slice(1));
+// returns the sliced dataset
+console.log("Slices",slices);  
+// returns the first slice
+console.log("First slice",slices[0]);
+// returns the array in the first slice
+console.log("A array",slices[0].values);   
+// returns the date of the first row in the first slice
+console.log("Date element",slices[0].values[0].date);  
+// returns the array's length
+console.log("Array length",(slices[0].values).length);
+//----------------------------SCALES-----------------------------//
+const xScale = d3.scaleLinear().rangeRound([0,width]);
+const yScale = d3.scaleLinear().rangeRound([height, 0]);
+xScale.domain([(2010),(2023)]);
+yScale.domain([(0),(11)]);
+
+//-----------------------------AXES------------------------------//
+const yaxis = d3.axisLeft()
+    .ticks((slices[0].values).length)
+    .scale(yScale);
+
+const xaxis = d3.axisBottom()
+    .ticks((slices[0].values).length)
+    .tickFormat(d3.format("d"))
+    .scale(xScale);
+
+//----------------------------LINES------------------------------//
+let id = 0;
+const ids = function () {
+    return "line-"+id++;
+}
+
+const line = d3.line()
+    .x(function(d) { return xScale(d.date); })
+    .y(function(d) { return yScale(d.measurement); });
+
+//-------------------------2. DRAWING----------------------------//
+
+//-----------------------------AXES------------------------------//
 svg.append("g")
-    .attr("transform", `translate(0,${height - marginBottom})`)
-    .call(d3.axisBottom(x));
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xaxis);
 
-// Add the y-axis.
 svg.append("g")
-    .attr("transform", `translate(${marginLeft},0)`)
-    .call(d3.axisLeft(y));
+    .attr("class", "axis")
+    .call(yaxis);
 
-// Append the SVG element.
-container.append(svg.node());
+//----------------------------LINES------------------------------//
+const lines = svg.selectAll("lines")
+    .data(slices)
+    .enter()
+    .append("g");
 
+    lines.append("path")
+    .attr("class", ids)
+    .attr("d", function(d) { return line(d.values); });
+
+lines.append("text")
+    .attr("class","serie_label")
+    .datum(function(d) {
+        return {
+            id: d.id,
+            value: d.values[d.values.length - 1]}; })
+    .attr("transform", function(d) {
+            return "translate(" + (xScale(d.value.date) + 10)  
+            + "," + (yScale(d.value.measurement) + 5 ) + ")";})
+    .attr("x", 5)
+    .text(function(d) { return d.id; });
+
+});
 </script>
+</body>

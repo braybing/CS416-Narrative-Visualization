@@ -1,0 +1,162 @@
+/* grid layout */
+.item1 { grid-area: header;
+		 height: 10vh;
+         width: 95vw;
+         text-align: left;
+		 border: 2px black solid;
+         padding: 10px;
+         margin-left: auto;
+         margin-right: auto; }
+
+.item2 { grid-area: menu;
+		 width: 18vw;
+         text-align: center;
+         border: 2px black solid;
+		 margin-right: 5px; 
+	     margin-left: auto; 
+         height: 81vh; }
+
+.svg-container { grid-area: main; 
+         text-align: center;
+		 width: 76vw;
+         border: 2px black solid;
+         padding: 10px; 
+		 height: 78vh;
+		 }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main main main'
+    'menu main main main main main';
+  gap: 10px;
+  padding: 10px;
+}
+
+.legend-box {
+    width: 100%;
+    height: 22%;
+    margin: 10px auto;
+}
+.button-box { 
+    width: 100%;
+	height: 72%;
+    margin: 5px auto;
+}
+
+.btn-group {
+    padding-left: 4vw;
+}
+
+.btn-group button {
+	background-color: #04AA6D; 
+	border: 1px solid green; 
+	color: white; 
+	padding: 10px 24px; 
+	cursor: pointer; 
+	width: 50%; 
+	display: block; 
+    margin-top: 3vh;
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; 
+}
+
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
+.right-box {
+	text-align: right;
+    float: right;
+    margin-right: 3vw;
+}
+
+.left-box {
+	text-align: left;
+    float: left;
+}
+
+
+/* text decoration */
+.title-p {
+	font-weight: bold;
+	font-size: large;
+	margin-top: 3px;
+	margin-bottom: 5px;
+}
+
+.subtitle-p {
+	font-size: medium;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* chart legend */
+.legend { list-style: none;
+          width: 100%; }
+
+.legend li { float: left; 
+             margin-right: 10px; 
+             clear: left;
+             font-size: medium; }
+
+.legend span { border: 1px solid #ccc;
+               float: left; width: 12px; 
+               height: 12px; 
+               margin: 2px; }
+
+.legend .line0 { background-color: #ed3700; }
+.legend .line1 { background-color: #2b2929; }
+.legend .line2 { background-color: #9c9c9c; }
+
+/* AXES */
+/* ticks */
+.axis line{
+stroke: #706f6f;
+stroke-width: 0.5;
+shape-rendering: crispEdges;
+}
+
+/* axis contour */
+.axis path {
+stroke: #706f6f;
+stroke-width: 1.0;
+shape-rendering: crispEdges;
+}
+
+/* axis text */
+.axis text {
+fill: #2b2929;
+font-family: Georgia;
+font-size: 120%;
+}
+
+/* LINE CHART */
+path.line-0 {
+fill: none;
+stroke: #ed3700;
+stroke-width: 3;
+}
+
+path.line-1 {
+fill: none;
+stroke: #2b2929;
+stroke-width: 3;
+}
+
+path.line-2 {
+fill: none;
+stroke: #9c9c9c;
+stroke-width: 3;
+}
+
+.serie_label {
+fill: #2b2929;
+font-family: Georgia;
+font-size: 80%;
+}
+
+
