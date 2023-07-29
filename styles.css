@@ -159,4 +159,16 @@ font-family: Georgia;
 font-size: 80%;
 }
 
+/* TOOLTIP */
+.tooltip {
+fill: #2b2929;
+font-family: Georgia;
+font-size: 150%;
+}
+
+/* POINTS */
+.point {
+stroke: none;
+fill: #9c9c9c;
+}
 
