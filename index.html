@@ -100,5 +100,16 @@ var svg = d3.select("div#container").append("svg")
     .style("margin", margin)
     .classed("svg-content", true);
 
+//-----------------------------AXES------------------------------//
+svg.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xaxis);
+
+svg.append("g")
+    .attr("class", "axis")
+    .call(yaxis);
+
+
 </script>
 </body>
