@@ -193,7 +193,7 @@ lines.selectAll("circles")
 
         tooltip.html(d.measurement)
         .style("left", (d3.event.pageX + 25) + "px")
-        .style("top", (d3.event.pageY - 25) + "px");
+        .style("top", (d3.event.pageY + 25) + "px");
     
 var selection = d3.select(this).raise();
 
@@ -231,11 +231,12 @@ const annotations = [{
     bgPadding: 20,
     title: "Steady growth of population."
   },
-  x: 100,
-  y: 100,
+  x: 300,
+  y: 330,
+  y: 315,
   className: "show-bg",
-  dy: 137,
-  dx: 162
+  dy: -5,
+  dx: 300
 }];
 
 const makeAnnotations = d3.annotation()
@@ -253,3 +254,13 @@ svg
 
 </script>
 </body>
+
+<!-- Online Resources I used for project
+1. https://d3-annotation.susielu.com/
+2. https://stackoverflow.com/questions/51802798/update-line-graph-with-button-click
+3. https://datawanderings.com/2019/10/28/tutorial-making-a-line-chart-in-d3-js-v-5/
+4. https://stackoverflow.com/questions/7878076/css-to-lay-out-keys-values-legend-horizontally
+5. https://datawanderings.com/2019/11/01/tutorial-making-an-interactive-line-chart-in-d3-js-v-5/
+6. many articels from - https://www.w3schools.com
+-->
+</html>

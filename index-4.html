@@ -225,26 +225,29 @@ var selection = d3.select(this).raise();
 });
 
 // -----------------------ANNOTATION----------------------------//
-const type = d3.annotationLabel
+const type = d3.annotationBadge
+
 const annotations = [{
   note: {
-    label: "The values in this chart have been multiplied by factors allowing them to be shown side by side",
-    bgPadding: 20,
-    title: "The only negative trend is Satisfaction Levels"
+    label: "all data values have been multiplied by a factor for ease of comparisons",
+    title: "Satisfaction is the only negative trend!"
   },
+  //can use x, y directly instead of data
   x: 100,
-  y: 100,
-  className: "show-bg",
-  dy: 137,
-  dx: 162
-}];
+  y: 325,
+  dy: -150,
+  dx: 505,
+  subject: {
+    text: "S",
+    radius: 30
+  }
+}]
 
 const makeAnnotations = d3.annotation()
   .editMode(true)
   //also can set and override in the note.padding property
   //of the annotation object
   .notePadding(15)
-  .type(type)
   .annotations(annotations)
 
 svg
@@ -254,3 +257,13 @@ svg
 
 </script>
 </body>
+
+<!-- Online Resources I used for project
+1. https://d3-annotation.susielu.com/
+2. https://stackoverflow.com/questions/51802798/update-line-graph-with-button-click
+3. https://datawanderings.com/2019/10/28/tutorial-making-a-line-chart-in-d3-js-v-5/
+4. https://stackoverflow.com/questions/7878076/css-to-lay-out-keys-values-legend-horizontally
+5. https://datawanderings.com/2019/11/01/tutorial-making-an-interactive-line-chart-in-d3-js-v-5/
+6. many articels from - https://www.w3schools.com
+-->
+</html>
