@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>Brayden Bingham CS416 Narrative Visualization</title>
 <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js" integrity="sha512-iBAeBWWWFb8HqSBcrqcz98iIpuVH1la39dEYHtyQ/pGpeCQTQVvLJOWAuhv2Q7JSHp9k7hWA7sGxU3hHJe+tFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="stylesheet" type="text/css" href="styles.css">
 <style></style>
 </head>
@@ -13,7 +14,7 @@
 	<div class="item1">
 		<div class="left-box">
 			<p class="title-p">What is the trend predicting...</p>			
-			<p class="subtitle-p"></p>
+			<p class="subtitle-p">We can clearly see that satisfaction level is not merely tied to the average size or wealth of our nation.</p>
 		</div>
 		<div class="right-box">
 			<p class="subtitle-p">Data displayed below was gathered from</p>
@@ -222,6 +223,34 @@ var selection = d3.select(this).raise();
             .style("opacity", 0);
         });
 });
+
+// -----------------------ANNOTATION----------------------------//
+const type = d3.annotationLabel
+const annotations = [{
+  note: {
+    label: "The values in this chart have been multiplied by factors allowing them to be shown side by side",
+    bgPadding: 20,
+    title: "The only negative trend is Satisfaction Levels"
+  },
+  x: 100,
+  y: 100,
+  className: "show-bg",
+  dy: 137,
+  dx: 162
+}];
+
+const makeAnnotations = d3.annotation()
+  .editMode(true)
+  //also can set and override in the note.padding property
+  //of the annotation object
+  .notePadding(15)
+  .type(type)
+  .annotations(annotations)
+
+svg
+  .append("g")
+  .attr("class", "annotation-group")
+  .call(makeAnnotations)
 
 </script>
 </body>

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>Brayden Bingham CS416 Narrative Visualization</title>
 <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js" integrity="sha512-iBAeBWWWFb8HqSBcrqcz98iIpuVH1la39dEYHtyQ/pGpeCQTQVvLJOWAuhv2Q7JSHp9k7hWA7sGxU3hHJe+tFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="stylesheet" type="text/css" href="styles.css">
 <style></style>
 </head>
@@ -12,8 +13,8 @@
 <div class="grid-container">
 	<div class="item1">
 		<div class="left-box">
-			<p class="title-p">TODO title</p>			
-			<p class="subtitle-p"></p>
+			<p class="title-p">American citizens are getting wealthier on average per capita!</p>			
+			<p class="subtitle-p">Surely this must suggest that the satisfaction level is increasing?</p>
 		</div>
 		<div class="right-box">
 			<p class="subtitle-p">Data displayed below was gathered from</p>
@@ -192,7 +193,7 @@ lines.selectAll("circles")
             .style("opacity", 1);
 
         tooltip.html(d.measurement)
-        .style("left", (d3.event.pageX + 5) + "px")
+        .style("left", (d3.event.pageX + 25) + "px")
         .style("top", (d3.event.pageY - 25) + "px");
     
 var selection = d3.select(this).raise();
@@ -222,6 +223,34 @@ var selection = d3.select(this).raise();
             .style("opacity", 0);
         });
 });
+
+// -----------------------ANNOTATION----------------------------//
+const type = d3.annotationLabel
+const annotations = [{
+  note: {
+    label: "Although the GDP hasn't had steady growth. The GDP is still almost 10K more now than it was 11 years ago.",
+    bgPadding: 20,
+    title: "Overall growth in GDP per capita"
+  },
+  x: 100,
+  y: 100,
+  className: "show-bg",
+  dy: 137,
+  dx: 162
+}];
+
+const makeAnnotations = d3.annotation()
+  .editMode(true)
+  //also can set and override in the note.padding property
+  //of the annotation object
+  .notePadding(15)
+  .type(type)
+  .annotations(annotations)
+
+svg
+  .append("g")
+  .attr("class", "annotation-group")
+  .call(makeAnnotations)
 
 </script>
 </body>
